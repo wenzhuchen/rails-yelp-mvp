@@ -1,14 +1,34 @@
-<h1><%= @restaurant.name %></h1>
-<%= link_to "Edit", edit_restaurant_path %>
-<p>Address: <%= t(@restaurant.address) %></p>
-<p>Phone: <%= t(@restaurant.phone_number) %></p>
-<p>Category: <%= t(@restaurant.category) %></p>
+<div>
+  <h1><%= @restaurant.name %></h1>
+</div>
 
+<div>
+  <%= link_to "Edit restaurant details", edit_restaurant_path, class: "btn btn-primary" %>
+  <p>Address: <%= t(@restaurant.address) %></p>
+  <p>Phone: <%= t(@restaurant.phone_number) %></p>
+  <p>Category: <%= t(@restaurant.category) %></p>
+</div>
+
+<div>
 <h2>Ratings</h2>
 <ul>
-  <%= link_to "Add review", new_restaurant_review_path(@restaurant) %>
   <% @restaurant.reviews.each do |review| %>
     <li><%= "#{review.content} #{'*' * review.rating} " %></li>
   <% end %>
 </ul>
+</div>
+
+<div>
+<%= "Add new review for #{@restaurant.name}" %>
+<%= simple_form_for [@restaurant, @review] do |f| %>
+  <%= f.full_error :token %>
+  <%= f.input :content, as: :text %>
+  <%= f.input :rating, collection: [0, 1, 2, 3, 4, 5] %>
+  <%= f.submit "add a review", class: "btn btn-primary" %>
+  <%= f.full_error :token %>
+<% end %>
+
+</div>
 <%= link_to "back to list", restaurants_path %>
+
+
