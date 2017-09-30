@@ -1,0 +1,11 @@
+<%= simple_form_for [@restaurant] do |f| %>
+  <%= f.full_error :token %>
+  <%= f.input :name %>
+  <%= f.input :address, as: :text %>
+  <%= f.input :phone_number %>
+  <%= f.input :category, collection: ['chinese', 'italian', 'japanese', 'french', 'belgian'] %>
+  <%= f.submit "add a review", class: "btn btn-primary" %>
+  <%= f.full_error :token %>
+<% end %>
+
+<%= link_to "back to list", restaurants_path %>
